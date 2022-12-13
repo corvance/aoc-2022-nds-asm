@@ -20,8 +20,9 @@ main:
     ldrb r4, [r2]   @ Get character.
     cmp r4, #'\n'   @ Check if newline a.k.a elf is done.
     beq .elfDone
+    @ If end of file, still branch to elfDone to check last elf.
     cmp r4, #'\0'   @ Check if null terminator a.k.a end of data.
-    beq .finished
+    beq .elfDone
 
     bl parseInt
     add r0, r0, r3  @ Add parsed integer to elf's running total.
@@ -30,7 +31,10 @@ main:
     cmp r1, r0
     movlt r1, r0    @ Set current highest to elf running total if highest is less than it.
     eor r0, r0      @ Reset elf running total.
-    add r2, r2, #1  @ Skip past newline to the next elf's first number. 
+
+    ldrb r4, [r2], #1   @ Get character.
+    cmp r4, #'\0'       @ Check if null terminator a.k.a end of data.
+    beq .finished
     b .elfLoop
 
 .finished:
@@ -68,7 +72,7 @@ parseInt:
 .section .rodata
 
 @ Initial output.
-intro: .ascii "AOC 2022 - Day 1\n\000"
+intro: .ascii "AOC 2022 - Day 1 - Part 1\n\000"
 @ Output upon finishing.
 output:	.ascii	"\nThe highest elf calorie total is %i!\n\000"
 
