@@ -1,5 +1,5 @@
-.include "../../topscreen.s"
-.include "../../common.s"
+.include "../../../topscreen.s"
+.include "../../../common.s"
 
 .global main
 main:
