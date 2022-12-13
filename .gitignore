@@ -3,3 +3,9 @@
 
 #  Build directories.
 **/build
+# Binaries
+**/*.elf
+**/*.nds
+
+# GRIT result for topscreen.png.
+topscreen.s
